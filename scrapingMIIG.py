@@ -1,4 +1,4 @@
-# Librerias
+# Librerías
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -40,12 +40,12 @@ WebDriverWait(driver, 5)\
                                       '//*[@id="ctl00_ctl51_g_1b55f9d1_80ba_407b_ab58_82eed386edb2_ctl00_wpCajaBusqueda_csr_sbox"]')))\
     .send_keys('Hidrogeología')
 time.sleep(1)
-#Enviar busqueda
+#Enviar búsqueda
 WebDriverWait(driver, 5)\
     .until(EC.element_to_be_clickable((By.XPATH,
                                       '//*[@id="ctl00_ctl51_g_1b55f9d1_80ba_407b_ab58_82eed386edb2_ctl00_wpCajaBusqueda_csr_SearchLink"]')))\
     .click()
-# Capturar infomración de texto
+# Capturar información de texto
 WebDriverWait(driver, 5)\
     .until(EC.element_to_be_clickable((By.XPATH,
                                       '//*[@id="ctl00_ctl51_g_6459c858_7354_4a84_9992_505f0b4f1814_csr1_groupContent"]')))
@@ -54,12 +54,12 @@ texto_busqueda=driver.find_element_by_xpath('//*[@id="ctl00_ctl51_g_6459c858_735
 texto_busqueda=texto_busqueda.text
 # Creación de un dataframe
 texto_col = texto_busqueda.split('\n')
-# Crear listas vacias para almacenar información
+# Crear listas vacías para almacenar información
 titulo =list()
 fecha=list()
 # Almacenar la información como una tabla de dos variables
 for i in range(0,len(texto_col),3):    #Salto de 3 dado que las variables
     titulo.append(texto_col[i])        #organizan de la forma:
-    fecha.append(texto_col[i+1])       #Títutlo, Fecha, Texto con hipervinculo ver elemento
+    fecha.append(texto_col[i+1])       #Título, Fecha, Texto con hipervínculo ver elemento
 df = pd.DataFrame({'Título':titulo,'Fecha':fecha,'Buesqueda por:':'Hidrogeología'})
 print(df)

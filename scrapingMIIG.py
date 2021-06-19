@@ -15,7 +15,7 @@ options.add_argument('--strat-maximized')
 options.add_argument('--disable-extensions')
 
 driver_path = 'Chrome Complementos/chromedriver_linux64/chromedriver'
-driver = webdriver.Chrome(driver_path)
+driver = webdriver.Chrome(driver_path,chrome_options=options)
 # Iniciar en pantalla 02
 driver.set_window_position(2000,0)
 driver.maximize_window()
@@ -29,8 +29,19 @@ iframe = driver.find_element_by_xpath("//iframe[contains(@id,'DlgFrame')]")
 driver.switch_to.frame(iframe)
 cookieAccpet = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="ctl00_ctl51_g_86a698c1_69cf_4a86_a26f_463629494e12_ctl00_rbTerminos_0"]')))
 cookieAccpet.click()
+time.sleep(1)
 cookieAccpet = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="ctl00_ctl51_g_86a698c1_69cf_4a86_a26f_463629494e12_ctl00_btnAceptar"]')))
 cookieAccpet.click()
 
 driver.switch_to.default_content()
+# Iniciar navegación
+WebDriverWait(driver, 5)\
+    .until(EC.element_to_be_clickable((By.XPATH,
+                                      '//*[@id="ctl00_ctl51_g_1b55f9d1_80ba_407b_ab58_82eed386edb2_ctl00_wpCajaBusqueda_csr_sbox"]')))\
+    .send_keys('Hidrogeología')
+#Enviar busqueda
+WebDriverWait(driver, 5)\
+    .until(EC.element_to_be_clickable((By.XPATH,
+                                      '//*[@id="ctl00_ctl51_g_1b55f9d1_80ba_407b_ab58_82eed386edb2_ctl00_wpCajaBusqueda_csr_SearchLink"]')))\
+    .click()
 

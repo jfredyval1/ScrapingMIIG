@@ -3,3 +3,5 @@ geckodriver.log
 /.idea/**
 /scrapingMIIG.py/**
 ConsultaMIIG.csv
+.~ConsultaMIIG.csv
+ConsultaMIIG.csv

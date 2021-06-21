@@ -2,3 +2,4 @@ geckodriver.log
 /Chrome Complementos/chromedriver_linux64/**
 /.idea/**
 /scrapingMIIG.py/**
+ConsultaMIIG.csv

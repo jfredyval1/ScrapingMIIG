@@ -9,14 +9,14 @@ import time
 import pandas as pd
 # Opciones de navegación
 options =webdriver.ChromeOptions()
-options.add_argument('--strat-maximized')
+options.add_argument('--strat-minimized')
 options.add_argument('--disable-extensions')
 
 driver_path = 'Chrome Complementos/chromedriver_linux64/chromedriver'
 driver = webdriver.Chrome(driver_path,chrome_options=options)
 # Iniciar en pantalla 02
 driver.set_window_position(2000,0)
-driver.maximize_window()
+driver.minimize_window()
 # Inicializar el navegador
 driver.get('https://miig.sgc.gov.co')
 time.sleep(2)
@@ -48,11 +48,17 @@ WebDriverWait(driver, 5)\
 titulo =list()
 fecha=list()
 # Navegación en páginas MIIG y capturar informaciòn en dataframe
-numpag = 5 # Número de páginas que serán consultadas
+numpag = int(input("Ingrese el número de recursos identificados por el buscador: "))# Número de páginas que serán consultadas
+numpag = round(numpag/20)
+# En caso de obtener menos de 21 recursos asignar número 1
+if numpag <= 20:
+	numpag=1
+	
+print("Inicia exploración en página 1")
 for i in range(1,numpag+1,1):
     if i <= numpag+1:
         time.sleep(3)
-        print('Explorando página: '+i)
+        print('Explorando página: ', i+1)
         WebDriverWait(driver, 5) \
             .until(EC.element_to_be_clickable((By.CLASS_NAME, 'ms-srch-group-content')))
         texto_busqueda = driver.find_element_by_class_name('ms-srch-group-content')

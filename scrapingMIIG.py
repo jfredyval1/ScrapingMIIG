@@ -34,10 +34,11 @@ cookieAccpet.click()
 
 driver.switch_to.default_content()
 # Iniciar navegación
+term = input("Ingrese el término que desea buscar en MIIG: ")
 WebDriverWait(driver, 5)\
     .until(EC.element_to_be_clickable((By.XPATH,
                                       '//*[@id="ctl00_ctl51_g_1b55f9d1_80ba_407b_ab58_82eed386edb2_ctl00_wpCajaBusqueda_csr_sbox"]')))\
-    .send_keys('Hidrogeología')
+    .send_keys(term)
 time.sleep(2)
 #Enviar búsqueda
 WebDriverWait(driver, 5)\
@@ -55,7 +56,7 @@ if numpag <= 20:
 	numpag=1
 	
 print("Inicia exploración en página 1")
-for i in range(1,numpag+1,1):
+for i in range(1,numpag,1):
     if i <= numpag+1:
         time.sleep(3)
         print('Explorando página: ', i+1)
@@ -69,8 +70,8 @@ for i in range(1,numpag+1,1):
             fecha.append(texto_col[i + 1])    # Título, Fecha, Texto con hipervínculo ver elemento
         WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="PageLinkNext"]'))).click()
         time.sleep(3)
-        df = pd.DataFrame({'Título': titulo, 'Fecha': fecha, 'Buesqueda por:': 'Hidrogeología'})
+        df = pd.DataFrame({'Título': titulo, 'Fecha': fecha, 'Buesqueda por:': term})
 # Cerrar navegador, imprimir resultados y guardarlos en archivo .csv
 driver.quit()
 print(df)
-df.to_csv('ConsultaMIIG.csv',index=False,sep='|')
+df.to_csv(term +'ConsultaMIIG.csv',index=False,sep='|')
